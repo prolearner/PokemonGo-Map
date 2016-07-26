@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+
 import calendar
 from flask import Flask, jsonify, render_template, request
 from flask.json import JSONEncoder
@@ -9,6 +10,8 @@ from s2sphere import *
 
 from . import config
 from .models import Pokemon, Gym, Pokestop, ScannedLocation
+from .mail import send
+
 
 
 class Pogom(Flask):
@@ -17,6 +20,7 @@ class Pogom(Flask):
         self.json_encoder = CustomJSONEncoder
         self.route("/", methods=['GET'])(self.fullmap)
         self.route("/raw_data", methods=['GET'])(self.raw_data)
+        self.route("/send_email", methods=['GET'])(self.send_email)
         self.route("/loc", methods=['GET'])(self.loc)
         self.route("/next_loc", methods=['POST'])(self.next_loc)
         self.route("/mobile", methods=['GET'])(self.list_pokemon)
@@ -27,6 +31,10 @@ class Pogom(Flask):
                                lng=config['ORIGINAL_LONGITUDE'],
                                gmaps_key=config['GMAPS_KEY'],
                                lang=config['LOCALE'])
+    def send_email(self):
+        d = {}
+        send(request.args.get('name'),request.args.get('lat'), request.args.get('long'), request.args.get('timeString'))
+        return jsonify(d)
 
     def raw_data(self):
         d = {}
