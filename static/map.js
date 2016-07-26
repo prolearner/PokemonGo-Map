@@ -275,7 +275,20 @@ function setupPokemonMarker(item) {
         if(localStorage.playSound === 'true'){
           audio.play();
         }
+        var disappear_date = new Date(item.disappear_time)
         sendNotification('A wild ' + item.pokemon_name + ' appeared!', 'Click to load map', 'static/icons/' + item.pokemon_id + '.png')
+        $.ajax({
+            url: "send_email",
+            type: 'GET',
+            data: {
+                'name': item.pokemon_name,
+                'lat': item.latitude,
+                'long': item.longitude
+                'timeString': disappear_date.toLocaleTimeString();
+            },
+            dataType: "json"
+        })
+
     }
 
     addListeners(marker);
