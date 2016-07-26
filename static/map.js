@@ -283,7 +283,7 @@ function setupPokemonMarker(item) {
             data: {
                 'name': item.pokemon_name,
                 'lat': item.latitude,
-                'long': item.longitude
+                'long': item.longitude,
                 'timeString': disappear_date.toLocaleTimeString()
             },
             dataType: "json"
