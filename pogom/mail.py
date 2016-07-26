@@ -7,8 +7,8 @@ from datetime import datetime
 log = logging.getLogger(__name__)
 
 mail_list =['rikkajounin@gmail.com'
-            ,'Biagiopain@hotmail.it'
-            ,'Samuele.banchelli@gmail.com'
+            #,'Biagiopain@hotmail.it'
+            #,'Samuele.banchelli@gmail.com'
             ]
 
 
