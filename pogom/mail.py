@@ -21,7 +21,7 @@ def send(name, lat , long, timeString):
     time = 'disappear time: {}'.format(timeString)
     text = '{} appears... coordinates:\n {} \n'.format( name, mapString, ), time, '\n'
 
-    yag = yagmail.SMTP('davidegiretti@gmail.com', 'heisenberg44')
+   #yag = yagmail.SMTP('davidegiretti@gmail.com', 'heisenberg44')
 
     for email in mail_list:
         #yag.send(email, subject, text)
