@@ -1,7 +1,7 @@
 import logging
 import yagmail
 from datetime import datetime
-import requests
+from mailjet import Client
 
 key = 'key-879026018cfa93cd484a3a819b218339'
 sandbox = 'sandbox2689eea951c741a79298ac186e00ebe0.mailgun.org'
@@ -25,14 +25,18 @@ def send(name, lat , long, timeString):
 
     for email in mail_list:
         #yag.send(email, subject, text)
-
-        request_url = 'https://api.mailgun.net/v3/{0}/messages'.format(sandbox)
-        request = requests.post(request_url, auth=('api', key), data={
-            'from': 'hello@example.com',
-            'to': email,
-            'subject': subject,
-            'text': text
-        })
-
-        print 'Status: {0}'.format(request.status_code)
-        print 'Body:   {0}'.format(request.text)
+        api_key = "d5cd7c3268efce6a2174114bdfbfc4af"
+        api_secret = "e0ae54a66eacbf0a1fc81b9f5a59683c"
+        mailjet = Client(auth=(api_key, api_secret))
+        data = {
+          'FromEmail': 'davidegiretti@gmail.com',
+          'FromName': 'davide giretti',
+          'Subject': subject,
+          'Text-part': text,
+          'Recipients': [
+        				{
+        						"Email": email
+        				}
+        		]
+        }
+        result = mailjet.send.create(data=data)
